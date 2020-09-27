@@ -57,10 +57,3 @@ function random(num) {
 }
 
 init();
-
-/*
-function renderHP(person) {
-	renderLifeHP(person);
-	renderProgressbarHP(person);
-}
-*/
