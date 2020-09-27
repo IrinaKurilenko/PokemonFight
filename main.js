@@ -1,34 +1,66 @@
-const firstRow = 'мама мыла раму';
-const secondRow = 'собака друг человека';
+const $btn = document.getElementById('btn-kick');
 
-function getNumberOfItems(item, someString) {
-	let counter = 0;
-	for (i = 0; i < someString.length; i++) {
-		if (someString.charAt(i) === item) {
-			counter++;
-		}
-	}
-	return counter;
+const character = {
+	name: 'Pikachu',
+	defaultHP: 100,
+	damageHP: 100,
+	elHP: document.getElementById('health-character'),
+	elProgressbar: document.getElementById('progressbar-character'),
 }
 
-//console.log(getNumberOfItems('а', firstRow));
-//console.log(getNumberOfItems('а', secondRow));
-
-const getRow = (firstRow, secondRow) =>
-	getNumberOfItems("а", firstRow) >= getNumberOfItems("а", secondRow) ? firstRow : secondRow;
-
-console.log(getRow(firstRow, secondRow)); // мама мыла раму
-
-/* =======================================================================*/
-
-let phone = '+71234567890';
-//console.log(phone.length);
-
-function formattedPhone(phone) {
-	for (i = 0; i < phone.length; i++) {
-		phone.charAt(i);
-	}
-	return (`${phone[0] + phone[1]} (${phone[2]}${phone[3]}${phone[4]}) ${phone[5]}${phone[6]}${phone[7]}-${phone[8]}${phone[9]}-${phone[10]}${phone[1]}`);
+const enemy = {
+	name: 'Charmander',
+	defaultHP: 100,
+	damageHP: 100,
+	elHP: document.getElementById('health-enemy'),
+	elProgressbar: document.getElementById('progressbar-enemy'),
 }
 
-console.log(formattedPhone('+71234567890'));
+$btn.addEventListener('click', function () {
+	console.log('Kick!');
+	changeHP(random(30), character);
+	changeHP(random(30), enemy);
+});
+
+function init() {
+	console.log('Start the game');
+	renderHP(character);
+	renderHP(enemy);
+}
+
+function renderHP(person) {
+	renderLifeHP(person);
+	renderProgressbarHP(person);
+}
+
+function renderLifeHP(person) {
+	person.elHP.innerText = person.damageHP + ' / ' + person.defaultHP;
+}
+
+function renderProgressbarHP(person) {
+	person.elProgressbar.style.width = person.damageHP + '%';
+}
+
+function changeHP(count, person) {
+	if (person.damageHP < count) {
+		person.damageHP = 0;
+		alert(`For ${person.name} game is over :(`);
+		$btn.disabled = true;
+	} else {
+		person.damageHP -= count;
+	}
+	renderHP(person);
+}
+
+function random(num) {
+	return Math.ceil(Math.random() * num);
+}
+
+init();
+
+/*
+function renderHP(person) {
+	renderLifeHP(person);
+	renderProgressbarHP(person);
+}
+*/
