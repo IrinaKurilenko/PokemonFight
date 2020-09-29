@@ -6,7 +6,11 @@ const character = {
 	damageHP: 100,
 	elHP: document.getElementById('health-character'),
 	elProgressbar: document.getElementById('progressbar-character'),
-}
+	renderLifeHP: renderLifeHP,
+	renderProgressbarHP: renderProgressbarHP,
+	renderHP: renderHP,
+	changeHP: changeHP,
+};
 
 const enemy = {
 	name: 'Charmander',
@@ -14,42 +18,46 @@ const enemy = {
 	damageHP: 100,
 	elHP: document.getElementById('health-enemy'),
 	elProgressbar: document.getElementById('progressbar-enemy'),
-}
+	renderLifeHP: renderLifeHP,
+	renderProgressbarHP: renderProgressbarHP,
+	renderHP: renderHP,
+	changeHP: changeHP,
+};
 
 $btn.addEventListener('click', function () {
 	console.log('Kick!');
-	changeHP(random(30), character);
-	changeHP(random(30), enemy);
+	character.changeHP(random(30));
+	enemy.changeHP(random(20));
 });
 
 function init() {
 	console.log('Start the game');
-	renderHP(character);
-	renderHP(enemy);
+	character.renderHP();
+	enemy.renderHP();
 }
 
-function renderHP(person) {
-	renderLifeHP(person);
-	renderProgressbarHP(person);
+function renderHP() {
+	this.renderLifeHP();
+	this.renderProgressbarHP();
 }
 
-function renderLifeHP(person) {
-	person.elHP.innerText = person.damageHP + ' / ' + person.defaultHP;
+function renderLifeHP() {
+	this.elHP.innerText = `${this.damageHP} / ${this.defaultHP} %`;
 }
 
-function renderProgressbarHP(person) {
-	person.elProgressbar.style.width = person.damageHP + '%';
+function renderProgressbarHP() {
+	this.elProgressbar.style.width = this.damageHP + '%';
 }
 
-function changeHP(count, person) {
-	if (person.damageHP < count) {
-		person.damageHP = 0;
-		alert(`For ${person.name} game is over :(`);
+function changeHP(count) {
+	if (this.damageHP < count) {
+		this.damageHP = 0;
+		alert(`For ${this.name} game is over :(`);
 		$btn.disabled = true;
 	} else {
-		person.damageHP -= count;
+		this.damageHP -= count;
 	}
-	renderHP(person);
+	this.renderHP();
 }
 
 function random(num) {
