@@ -71,13 +71,11 @@ function changeHP(count) {
 	}
 
 	this.renderHP();
-
 }
 
 function random(num) {
 	return Math.ceil(Math.random() * num);
 }
-
 
 function generateLog(firstPerson, secondPerson) {
 	const logs = [
