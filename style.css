@@ -47,6 +47,7 @@ body {
 	position: relative;
 	margin: 20px;
 	display: flex;
+	flex-wrap: wrap;
 	justify-content: center;
 	align-items: center;
 }
@@ -273,6 +274,7 @@ body {
 }
 
 .button {
+	margin: 0 10px;
 	position: relative;
 	background: white;
 	border: 2px solid #ffc55b;

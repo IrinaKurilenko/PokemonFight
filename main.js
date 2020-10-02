@@ -2,7 +2,10 @@ function $getElByID(id) {
 	return document.getElementById(id);
 }
 
+const $btnScratch = $getElByID('btn-scratch');
 const $btn = $getElByID('btn-kick');
+const $btnWild = $getElByID('btn-wild');
+
 
 const character = {
 	name: 'Pikachu',
@@ -28,10 +31,22 @@ const enemy = {
 	changeHP,
 };
 
+$btnScratch.addEventListener('click', function () {
+	console.log("That's all you can do?");
+	character.changeHP(random(10));
+	enemy.changeHP(random(10));
+});
+
 $btn.addEventListener('click', function () {
 	console.log('Kick!');
-	character.changeHP(random(20));
-	enemy.changeHP(random(20));
+	character.changeHP(randomHigh(10, 30));
+	enemy.changeHP(randomHigh(10, 30));
+});
+
+$btnWild.addEventListener('click', function () {
+	console.log("OMG it's a Wild Charge!");
+	character.changeHP(randomHigh(30, 50));
+	enemy.changeHP(randomHigh(30, 50));
 });
 
 function init() {
@@ -76,6 +91,9 @@ function changeHP(count) {
 function random(num) {
 	return Math.ceil(Math.random() * num);
 }
+function randomHigh(min, max) {
+	return Math.ceil(Math.random() * (max - min)) + min;
+}
 
 function generateLog(firstPerson, secondPerson) {
 	const logs = [
@@ -93,10 +111,5 @@ function generateLog(firstPerson, secondPerson) {
 
 	return logs[random(logs.length) - 1];
 }
-
-
-
-
-
 
 init();
