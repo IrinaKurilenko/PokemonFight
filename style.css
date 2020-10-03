@@ -523,3 +523,15 @@ h1 {
 .action label {
 	padding: 6px 0;
 }
+
+#logs {
+	width: 50%;
+	height: 500px;
+	margin: 20px auto;
+	padding: 15px;
+	overflow: auto;
+	text-align: left;
+	background-color: #7bd8f7;
+	border-radius: 10px;
+	box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.4);
+}

@@ -1,6 +1,4 @@
-function $getElByID(id) {
-	return document.getElementById(id);
-}
+const $getElByID = id => document.getElementById(id);
 
 const $btnScratch = $getElByID('btn-scratch');
 const $btn = $getElByID('btn-kick');
@@ -55,6 +53,21 @@ function init() {
 	enemy.renderHP();
 }
 
+function clickCounter() {
+	let clicks = 0;
+	return function () {
+		clicks++;
+		console.log(clicks);
+	};
+}
+const count = clickCounter();
+
+let $button = document.querySelector('.button');
+$button.addEventListener('click', function () {
+	count();
+});
+
+
 function renderHP() {
 	this.renderLifeHP();
 	this.renderProgressbarHP();
@@ -88,12 +101,8 @@ function changeHP(count) {
 	this.renderHP();
 }
 
-function random(num) {
-	return Math.ceil(Math.random() * num);
-}
-function randomHigh(min, max) {
-	return Math.ceil(Math.random() * (max - min)) + min;
-}
+const random = num => Math.ceil(Math.random() * num);
+const randomHigh = (min, max) => Math.ceil(Math.random() * (max - min)) + min;
 
 function generateLog(firstPerson, secondPerson) {
 	const logs = [
@@ -113,3 +122,4 @@ function generateLog(firstPerson, secondPerson) {
 }
 
 init();
+
