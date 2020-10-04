@@ -531,7 +531,7 @@ h1 {
 	padding: 15px;
 	overflow: auto;
 	text-align: left;
-	background-color: #7bd8f7;
-	border-radius: 10px;
-	box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.4);
+	background-color: #d0f6fd;
+	border-radius: 15px;
+	box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
 }

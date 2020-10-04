@@ -4,7 +4,6 @@ const $btnScratch = $getElByID('btn-scratch');
 const $btn = $getElByID('btn-kick');
 const $btnWild = $getElByID('btn-wild');
 
-
 const character = {
 	name: 'Pikachu',
 	defaultHP: 100,
@@ -16,35 +15,44 @@ const character = {
 	renderHP,
 	changeHP,
 };
+// Просто так: 
+const enemy = Object.create(character);
+enemy.name = 'Charmander';
+enemy.elHP = $getElByID('health-enemy');
+enemy.elProgressbar = $getElByID('progressbar-enemy');
 
-const enemy = {
-	name: 'Charmander',
-	defaultHP: 100,
-	damageHP: 100,
-	elHP: $getElByID('health-enemy'),
-	elProgressbar: $getElByID('progressbar-enemy'),
-	renderLifeHP,
-	renderProgressbarHP,
-	renderHP,
-	changeHP,
-};
+//const enemy = {
+//	name: 'Charmander',
+//	defaultHP: 100,
+//	damageHP: 100,
+//	elHP: $getElByID('health-enemy'),
+//	elProgressbar: $getElByID('progressbar-enemy'),
+//	renderLifeHP,
+//	renderProgressbarHP,
+//	renderHP,
+//	changeHP,
+//};
 
 $btnScratch.addEventListener('click', function () {
 	console.log("That's all you can do?");
 	character.changeHP(random(10));
 	enemy.changeHP(random(10));
+	counter();
+
 });
 
 $btn.addEventListener('click', function () {
 	console.log('Kick!');
 	character.changeHP(randomHigh(10, 30));
 	enemy.changeHP(randomHigh(10, 30));
+	counter();
 });
 
 $btnWild.addEventListener('click', function () {
 	console.log("OMG it's a Wild Charge!");
 	character.changeHP(randomHigh(30, 50));
 	enemy.changeHP(randomHigh(30, 50));
+	counter();
 });
 
 function init() {
@@ -60,13 +68,7 @@ function clickCounter() {
 		console.log(clicks);
 	};
 }
-const count = clickCounter();
-
-let $button = document.querySelector('.button');
-$button.addEventListener('click', function () {
-	count();
-});
-
+const counter = clickCounter();
 
 function renderHP() {
 	this.renderLifeHP();
@@ -85,7 +87,7 @@ function changeHP(count) {
 	this.damageHP -= count;
 
 	const log = this === enemy ? `${generateLog(this, character)} -${count} [${this.damageHP} / ${this.defaultHP}]` : `${generateLog(this, enemy)} -${count} [${this.damageHP} / ${this.defaultHP}]`;
-	console.log(log);
+	//console.log(log);
 
 	const $logsOnScreen = document.querySelector('#logs');
 	const $p = document.createElement('p');
@@ -117,7 +119,6 @@ function generateLog(firstPerson, secondPerson) {
 		`${firstPerson.name} расстроился, как вдруг, неожиданно ${secondPerson.name} случайно влепил стопой в живот соперника.`,
 		`${firstPerson.name} пытался что-то сказать, но вдруг, неожиданно ${secondPerson.name} со скуки, разбил бровь сопернику.`
 	];
-
 	return logs[random(logs.length) - 1];
 }
 
