@@ -1,7 +1,7 @@
 const $getElByID = id => document.getElementById(id);
 
 const $btnScratch = $getElByID('btn-scratch');
-const $btn = $getElByID('btn-kick');
+const $btnJolt = $getElByID('btn-jolt');
 const $btnWild = $getElByID('btn-wild');
 
 const character = {
@@ -15,60 +15,63 @@ const character = {
 	renderHP,
 	changeHP,
 };
-// Просто так: 
-const enemy = Object.create(character);
-enemy.name = 'Charmander';
-enemy.elHP = $getElByID('health-enemy');
-enemy.elProgressbar = $getElByID('progressbar-enemy');
 
-//const enemy = {
-//	name: 'Charmander',
-//	defaultHP: 100,
-//	damageHP: 100,
-//	elHP: $getElByID('health-enemy'),
-//	elProgressbar: $getElByID('progressbar-enemy'),
-//	renderLifeHP,
-//	renderProgressbarHP,
-//	renderHP,
-//	changeHP,
-//};
+const enemy = {
+	name: 'Charmander',
+	defaultHP: 100,
+	damageHP: 100,
+	elHP: $getElByID('health-enemy'),
+	elProgressbar: $getElByID('progressbar-enemy'),
+	renderLifeHP,
+	renderProgressbarHP,
+	renderHP,
+	changeHP,
+};
+
+const countScratch = clickCounter(5, $btnScratch);
+const countJolt = clickCounter(5, $btnJolt);
+const countWild = clickCounter(2, $btnWild);
 
 $btnScratch.addEventListener('click', function () {
-	console.log("That's all you can do?");
+	console.log(countScratch());
 	character.changeHP(random(10));
 	enemy.changeHP(random(10));
-	counter();
-
+	//console.log("That's all you can do?");
 });
 
-$btn.addEventListener('click', function () {
-	console.log('Kick!');
+$btnJolt.addEventListener('click', function () {
+	console.log(countJolt());
 	character.changeHP(randomHigh(10, 30));
 	enemy.changeHP(randomHigh(10, 30));
-	counter();
+	//console.log('Kick!');
+
 });
 
 $btnWild.addEventListener('click', function () {
-	console.log("OMG it's a Wild Charge!");
+	console.log(countWild());
 	character.changeHP(randomHigh(30, 50));
 	enemy.changeHP(randomHigh(30, 50));
-	counter();
+	//console.log("OMG it's a Wild Charge!");
 });
+
+function clickCounter(clicks = 5, button) {
+	const btnInnerText = button.innerText;
+	button.innerText = `${btnInnerText} (${clicks})`;
+	return function () {
+		clicks--;
+		if (clicks === 0) {
+			button.disabled = true;
+		}
+		button.innerText = `${btnInnerText} (${clicks})`;
+		return clicks;
+	};
+}
 
 function init() {
 	console.log('Start the game');
 	character.renderHP();
 	enemy.renderHP();
 }
-
-function clickCounter() {
-	let clicks = 0;
-	return function () {
-		clicks++;
-		console.log(clicks);
-	};
-}
-const counter = clickCounter();
 
 function renderHP() {
 	this.renderLifeHP();

@@ -1,0 +1,91 @@
+function click(buttonTag) {
+  let clickCounter = 0;
+  return function() {
+    
+  }
+}
+
+
+const $btnScratch = $getElByID('btn-scratch');
+const $btn = $getElByID('btn-kick');
+const $btnWild = $getElByID('btn-wild');
+
+<button>Scratch ( <span class="button-count-click"></span> ) </button>
+
+// 1. Assign handlers on all buttons
+const allButtons = document.querySelectorAll('button');
+[...allButtons].forEach(function(button) {
+  btn.addEventListener('click', buttonClick);
+});
+
+// 2. Describe behavior
+function buttonClick(event) {
+  const button = event.currentTarget;
+}
+
+                 
+function clickCounter(count, btn) {
+	let clicks = 0;
+	return function () {
+		clicks++;
+		console.log(clicks);
+    const span = btn.querySelector('button-count-click');
+    span.innerText =(count - clicks); 
+		if (clicks === count) {
+			btn.disabled = true;
+		}
+	};
+}
+
+const counter = clickCounter();
+counter(2, $btnWild);
+
+
+const allButtons = document.querySelectorAll();
+[...allButtons].forEach(function(btn) {
+
+  btn.addEventListener('click', function (event) {
+		console.log('Kick!');
+    const button = event.currentTarget;
+    
+    const buttonSettongs = getButtonSettings(button.id);
+
+	  character.changeHP(randomHigh(buttonSettongs.minHP, buttonSettongs.maxHP));
+	  enemy.changeHP(randomHigh(10, 30));
+
+    
+
+	  counter(buttonSettongs.clicks, button);
+  });
+
+  
+} );
+
+function getButtonSettings(id) {
+  const map = {
+    'btn-scratch': {
+      clicks: 10, minHP: 10, maxHP: 20
+    },
+		'btn-kick': {
+      clicks: 5, minHP: 10, maxHP: 20
+    },
+		'btn-wild': {
+      clicks: 2, minHP: 10, maxHP: 20
+    }
+  };
+  return map[id] || { clicks: 5, minHP: 10, maxHP: 20 };
+}
+
+
+
+const $attackButtons = document.getElementsByClassName("button");//одна переменная на все кнопки, хоть на 100
+//step-1 iter through the buttons
+for (let i = 0; i < $attackButtons.length; i++) {
+let button = $attackButtons[i];
+button.addEventListener("click", onAttackButtonClick);
+}
+//step-2 identifying the clicked button name
+function onAttackButtonClick(eventObj) {
+const clickedElement = eventObj.currentTarget;
+console.log(clickedElement.name);
+}
