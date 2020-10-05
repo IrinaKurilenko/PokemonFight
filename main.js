@@ -1,11 +1,8 @@
-function $getElByID(id) {
-	return document.getElementById(id);
-}
+const $getElByID = id => document.getElementById(id);
 
 const $btnScratch = $getElByID('btn-scratch');
-const $btn = $getElByID('btn-kick');
+const $btnJolt = $getElByID('btn-jolt');
 const $btnWild = $getElByID('btn-wild');
-
 
 const character = {
 	name: 'Pikachu',
@@ -31,23 +28,44 @@ const enemy = {
 	changeHP,
 };
 
+const countScratch = clickCounter(5, $btnScratch);
+const countJolt = clickCounter(5, $btnJolt);
+const countWild = clickCounter(2, $btnWild);
+
 $btnScratch.addEventListener('click', function () {
-	console.log("That's all you can do?");
+	console.log(countScratch());
 	character.changeHP(random(10));
 	enemy.changeHP(random(10));
+	//console.log("That's all you can do?");
 });
 
-$btn.addEventListener('click', function () {
-	console.log('Kick!');
+$btnJolt.addEventListener('click', function () {
+	console.log(countJolt());
 	character.changeHP(randomHigh(10, 30));
 	enemy.changeHP(randomHigh(10, 30));
+	//console.log('Kick!');
+
 });
 
 $btnWild.addEventListener('click', function () {
-	console.log("OMG it's a Wild Charge!");
+	console.log(countWild());
 	character.changeHP(randomHigh(30, 50));
 	enemy.changeHP(randomHigh(30, 50));
+	//console.log("OMG it's a Wild Charge!");
 });
+
+function clickCounter(clicks = 5, button) {
+	const btnInnerText = button.innerText;
+	button.innerText = `${btnInnerText} (${clicks})`;
+	return function () {
+		clicks--;
+		if (clicks === 0) {
+			button.disabled = true;
+		}
+		button.innerText = `${btnInnerText} (${clicks})`;
+		return clicks;
+	};
+}
 
 function init() {
 	console.log('Start the game');
@@ -72,7 +90,7 @@ function changeHP(count) {
 	this.damageHP -= count;
 
 	const log = this === enemy ? `${generateLog(this, character)} -${count} [${this.damageHP} / ${this.defaultHP}]` : `${generateLog(this, enemy)} -${count} [${this.damageHP} / ${this.defaultHP}]`;
-	console.log(log);
+	//console.log(log);
 
 	const $logsOnScreen = document.querySelector('#logs');
 	const $p = document.createElement('p');
@@ -88,12 +106,8 @@ function changeHP(count) {
 	this.renderHP();
 }
 
-function random(num) {
-	return Math.ceil(Math.random() * num);
-}
-function randomHigh(min, max) {
-	return Math.ceil(Math.random() * (max - min)) + min;
-}
+const random = num => Math.ceil(Math.random() * num);
+const randomHigh = (min, max) => Math.ceil(Math.random() * (max - min)) + min;
 
 function generateLog(firstPerson, secondPerson) {
 	const logs = [
@@ -108,8 +122,8 @@ function generateLog(firstPerson, secondPerson) {
 		`${firstPerson.name} расстроился, как вдруг, неожиданно ${secondPerson.name} случайно влепил стопой в живот соперника.`,
 		`${firstPerson.name} пытался что-то сказать, но вдруг, неожиданно ${secondPerson.name} со скуки, разбил бровь сопернику.`
 	];
-
 	return logs[random(logs.length) - 1];
 }
 
 init();
+
