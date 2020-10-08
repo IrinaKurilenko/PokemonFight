@@ -285,6 +285,7 @@ body {
 	outline: none !important;
 	cursor: pointer;
 	font-size: 18px;
+	text-transform: capitalize;
 }
 .button:after {
 	content: "";
