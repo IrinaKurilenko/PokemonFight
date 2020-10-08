@@ -4,6 +4,7 @@ import { random, generateLog, clickCounter } from "./utils.js";
 
 const randomHero = pokemons[random(pokemons.length - 1)];
 console.log(randomHero);
+
 const randomEnemy = pokemons[random(pokemons.length - 1)];
 console.log(randomEnemy);
 
